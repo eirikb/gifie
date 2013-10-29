@@ -7,8 +7,8 @@
     <title>gifie</title>
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="style.css">
+    <script src="http://code.jquery.com/jquery.min.js"></script>
     <script src="gifie.js"></script>
-
   </head>
 
   <body>
@@ -25,12 +25,18 @@
         <h1>gifie</h1>
         <p>Make a gif-selfie with your webcam!</p>
         <p><a href="https://github.com/eirikb/gifie">Source @ GitHub</a></p>
+        <div id="error" class="alert alert-danger hide">
+          gifie does not work with your browser
+        </div>
         <button type="button" class="btn btn-default btn-lg btn-block hide">
-          <span class="glyphicon glyphicon-facetime-video"></span> Record
+          <span class="glyphicon glyphicon-facetime-video"></span> 
+          <span class="record">Record</span>
         </button>
         <div>
           <label class="hide">Building...</label>
-          <img class="img-thumbnail hide">
+          <a id="imglink" target="_blank">
+            <img class="img-rounded hide">
+          </a>
         </div>
       </div>
     </div>

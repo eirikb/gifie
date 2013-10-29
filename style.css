@@ -11,3 +11,12 @@ body {
   width: 330px;
   margin: 0 auto;
 }
+
+button.disabled {
+  color: red;
+}
+
+img {
+  margin-left: 5px;
+  margin-top: 5px;
+}
