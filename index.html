@@ -8,6 +8,10 @@
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="style.css">
     <script src="http://code.jquery.com/jquery.min.js"></script>
+    <script src="http://anthonyterrien.com/js/jquery.knob.js"></script>
+    <script src="http://fgnass.github.io/spin.js/dist/spin.min.js"></script>
+    <script src="http://getbootstrap.com/dist/js/bootstrap.min.js"></script>
+    <script src="app.js"></script>
     <script src="gifie.js"></script>
   </head>
 
@@ -25,17 +29,40 @@
         <h1>gifie</h1>
         <p>Make a gif-selfie with your webcam!</p>
         <p><a href="https://github.com/eirikb/gifie">Source @ GitHub</a></p>
-        <div id="error" class="alert alert-danger hide">
+        <div class="group">
+          <label>Quality</label>
+          <div class="btn-group" data-toggle="buttons">
+            <label class="btn btn-sm btn-default">
+              <input id="quality-bad" name="quality" type="radio"> Bad
+            </label>
+            <label class="btn btn-sm btn-default active">
+              <input name="quality" type="radio"> Crap
+            </label>
+          </div>
+        </div>
+        <div class="group">
+          <label>Length</label>
+          <div class="btn-group" data-toggle="buttons">
+            <label class="btn btn-sm btn-default active">
+              <input id="length-short" name="length" type="radio"> Short
+            </label>
+            <label class="btn btn-sm btn-default">
+              <input name="length" type="radio"> Shorter
+            </label>
+          </div>
+        </div>
+        <div id="error" class="alert alert-danger">
           gifie does not work with your browser
         </div>
-        <button type="button" class="btn btn-default btn-lg btn-block hide">
+        <button id="record" type="button" class="btn btn-default btn-lg btn-block">
           <span class="glyphicon glyphicon-facetime-video"></span> 
-          <span class="record">Record</span>
+          <span class="info">Record</span>
         </button>
+        <input id="knob" type="text" value="3" data-max="3" data-displayInput="false" data-readOnly="true">
         <div>
-          <label class="hide">Building...</label>
-          <a id="imglink" target="_blank">
-            <img class="img-rounded hide">
+          <div id="spin"></div>
+          <a id="gifLink" target="_blank">
+            <img id="gif" class="img-rounded">
           </a>
         </div>
       </div>
