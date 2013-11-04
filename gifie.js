@@ -26,7 +26,6 @@ gifie = (function() {
     }, function(stream) {
       video.src = window.URL.createObjectURL(stream);
       trigger('prepare');
-      $('button').show();
     }, function(err) {
       trigger('prepare', err);
     });
