@@ -1,34 +1,38 @@
 $(function() {
-  var spinner = new Spinner({
-    lines: 17,
-    length: 40,
-    width: 10,
-    radius: 45,
-    top: 'auto',
-    left: 'auto'
-  });
-
   var $gif = $('#gif');
   var $gifLink = $('#gifLink');
   var $error = $('#error');
   var $record = $('#record');
-  var $knob = $('#knob');
-  var $spin = $('#spin');
   var $info = $record.find('.info');
   var $qualityBad = $('#quality-bad');
   var $lengthShort = $('#length-short');
   var $group = $('.group');
-
-  $knob.knob();
+  var $countdown = $('#countdown');
+  var $loader = $('#loader');
+  var loader;
 
   $group.hide();
   $error.hide();
   $record.hide();
-  $spin.hide();
-  $('#knob, canvas').hide();
+
+  $loader.knob().hide();
+  $countdown.knob().hide();
+
+  function startLoader() {
+    var i = 0;
+    loader = setInterval(function() {
+      $loader.val(++i % 100).trigger('change');
+    }, 10);
+    $loader.knob().show();
+  }
+
+  function stopLoader() {
+    clearInterval(loader);
+    $loader.knob().hide();
+  }
 
   on('prepare', function(err) {
-    if (!!err) {
+    if ( !! err) {
       $error.show();
     } else {
       $record.show();
@@ -38,13 +42,11 @@ $(function() {
 
   on('building', function() {
     $info.text('Building...');
-    $spin.show();
-    spinner.spin($spin[0]);
+    startLoader();
   });
 
   on('gif', function(dataUrl) {
-    $spin.hide();
-    spinner.stop();
+    stopLoader();
     $record.removeClass('disabled recording');
     $info.text('Record');
 
@@ -53,15 +55,14 @@ $(function() {
   });
 
   function loading() {
-    $('#knob, canvas').show();
     $gif.hide();
     $record.addClass('disabled');
     $info.text('Wait...');
+    $countdown.knob().show();
   }
 
   function record() {
     $record.addClass('recording');
-    $('#knob, canvas').hide();
     $info.text('Recording...');
 
     var qualityBad = $qualityBad.prop('checked');
@@ -75,14 +76,15 @@ $(function() {
 
   $record.click(function() {
     loading();
-    $knob.val(2).trigger('change');
+    $countdown.val($countdown.data('max')).trigger('change');
     var interval = setInterval(function() {
-      $knob.val($knob.val() - 1).trigger('change');
-      if ($knob.val() > 0) return;
+      $countdown.val($countdown.val() - 1).trigger('change');
+      if ($countdown.val() > 0) return;
 
       clearInterval(interval);
+      $countdown.knob().hide();
       record();
-    }, 1000);
+    }, 10);
   });
 
   gifie.prepare();

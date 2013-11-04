@@ -9,7 +9,6 @@
     <link rel="stylesheet" href="style.css">
     <script src="http://code.jquery.com/jquery.min.js"></script>
     <script src="http://anthonyterrien.com/js/jquery.knob.js"></script>
-    <script src="http://fgnass.github.io/spin.js/dist/spin.min.js"></script>
     <script src="http://getbootstrap.com/dist/js/bootstrap.min.js"></script>
     <script src="app.js"></script>
     <script src="gifie.js"></script>
@@ -58,9 +57,9 @@
           <span class="glyphicon glyphicon-facetime-video"></span> 
           <span class="info">Record</span>
         </button>
-        <input id="knob" type="text" value="3" data-max="3" data-displayInput="false" data-readOnly="true">
+        <input id="countdown" type="text" data-max="200" data-displayInput="false" data-readOnly="true">
+        <input id="loader" type="text" data-cursor="true" data-displayInput="false" data-readOnly="true">
         <div>
-          <div id="spin"></div>
           <a id="gifLink" target="_blank">
             <img id="gif" class="img-rounded">
           </a>
