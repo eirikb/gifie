@@ -13,9 +13,11 @@ $(function() {
   var $imgur = $('#imgur');
   var $imgurOauth = $('#imgur a:first');
   var $imgurAnon = $('#imgur a:last');
+  var $imgurUpload = $('#imgur-upload');
   var clientId = '6a5400948b3b376';
   var loader;
 
+  $imgurUpload.hide();
   $imgur.hide();
   $group.hide();
   $error.hide();
@@ -40,6 +42,9 @@ $(function() {
   }
 
   function imgurUpload(token) {
+    $imgurUpload.show();
+    $group.hide();
+
     var auth;
     if (token) authorization = 'Bearer ' + token;
     else authorization = 'Client-ID ' + clientId;
@@ -62,7 +67,7 @@ $(function() {
     });
   }
 
-  if (token && localStorage.doUpload) {
+  if (token && JSON.parse(localStorage.doUpload)) {
     localStorage.doUpload = false;
 
     imgurUpload(token);

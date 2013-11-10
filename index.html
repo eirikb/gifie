@@ -28,6 +28,7 @@
         <h1>gifie</h1>
         <p>Make a gif-selfie with your webcam!</p>
         <p><a href="https://github.com/eirikb/gifie">Source @ GitHub</a></p>
+        <h2 id="imgur-upload">Uploading to imgur...</h2>
         <div class="group">
           <label>Quality</label>
           <div class="btn-group" data-toggle="buttons">
@@ -50,31 +51,33 @@
             </label>
           </div>
         </div>
-        <div id="error" class="alert alert-danger">
-          gifie does not work with your browser
+        <div class="group">
+          <div id="error" class="alert alert-danger">
+            gifie does not work with your browser
+          </div>
+          <button id="record" type="button" class="btn btn-default btn-lg btn-block">
+            <span class="glyphicon glyphicon-facetime-video"></span> 
+            <span class="info">Record</span>
+          </button>
+          <input id="countdown" type="text" data-max="200" data-displayInput="false" data-readOnly="true">
+          <input id="loader" type="text" data-cursor="true" data-displayInput="false" data-readOnly="true">
+          <div>
+            <a id="gifLink" target="_blank">
+              <img id="gif" class="img-rounded">
+            </a>
+          </div>
+          <div id="imgur">
+            <a class="btn btn-default" href="https://api.imgur.com/oauth2/authorize?response_type=token">
+              <span class="glyphicon glyphicon-cloud-upload"></span>
+              <span class="glyphicon glyphicon-user"></span>
+              Post to imgur 
+            </a>
+            <a class="btn btn-default" href="#">
+              <span class="glyphicon glyphicon-cloud-upload"></span>
+              Post to anonymously to imgur 
+            </a>
+          </div>
         </div>
-        <button id="record" type="button" class="btn btn-default btn-lg btn-block">
-          <span class="glyphicon glyphicon-facetime-video"></span> 
-          <span class="info">Record</span>
-        </button>
-        <input id="countdown" type="text" data-max="200" data-displayInput="false" data-readOnly="true">
-        <input id="loader" type="text" data-cursor="true" data-displayInput="false" data-readOnly="true">
-        <div>
-          <a id="gifLink" target="_blank">
-            <img id="gif" class="img-rounded">
-          </a>
-        </div>
-        <div id="imgur">
-          <a class="btn btn-default" href="https://api.imgur.com/oauth2/authorize?response_type=token">
-            <span class="glyphicon glyphicon-cloud-upload"></span>
-            <span class="glyphicon glyphicon-user"></span>
-            Post to imgur 
-          </a>
-          <a class="btn btn-default" href="#">
-            <span class="glyphicon glyphicon-cloud-upload"></span>
-            Post to anonymously to imgur 
-          </a>
-      </div>
       </div>
     </div>
   </body>
