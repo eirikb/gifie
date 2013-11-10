@@ -41,3 +41,8 @@ canvas {
   margin-top: 5px;
   margin-bottom: 5px;
 }
+
+#imgur a {
+  margin-top: 5px;
+  color: #85bf25;
+}

@@ -13,8 +13,8 @@ gifie = (function() {
   video.height = canvas.height = height;
 
   worker.addEventListener('message', function(event) {
-    var dataUrl = 'data:image/gif;base64,' + btoa(event.data);
-    trigger('gif', dataUrl);
+    var dataBase64 = btoa(event.data);
+    trigger('gif', dataBase64);
   }, false);
 
   function prepare(cb) {

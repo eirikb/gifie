@@ -9,14 +9,75 @@ $(function() {
   var $group = $('.group');
   var $countdown = $('#countdown');
   var $loader = $('#loader');
+  var token = extractToken(document.location.hash);
+  var $imgur = $('#imgur');
+  var $imgurOauth = $('#imgur a:first');
+  var $imgurAnon = $('#imgur a:last');
+  var clientId = '6a5400948b3b376';
   var loader;
 
+  $imgur.hide();
   $group.hide();
   $error.hide();
   $record.hide();
 
   $loader.knob().hide();
   $countdown.knob().hide();
+
+  $imgur.find('a').click(function() {
+    localStorage.doUpload = true;
+  });
+
+  $imgurOauth.attr('href', $imgurOauth.attr('href') + '&client_id=' + clientId);
+
+  $imgurAnon.click(function() {
+    imgurUpload();
+  });
+
+  function extractToken(hash) {
+    var match = hash.match(/access_token=(\w+)/);
+    return !!match && match[1];
+  }
+
+  function imgurUpload(token) {
+    var auth;
+    if (token) authorization = 'Bearer ' + token;
+    else authorization = 'Client-ID ' + clientId;
+
+    $.ajax({
+      url: 'https://api.imgur.com/3/image',
+      method: 'POST',
+      headers: {
+        Authorization: authorization,
+        Accept: 'application/json'
+      },
+      data: {
+        image: localStorage.dataBase64,
+        type: 'base64'
+      },
+      success: function(result) {
+        var id = result.data.id;
+        window.location = 'https://imgur.com/gallery/' + id;
+      }
+    });
+  }
+
+  if (token && localStorage.doUpload) {
+    localStorage.doUpload = false;
+
+    imgurUpload(token);
+
+    return;
+  }
+
+  if (!('sendAsBinary' in XMLHttpRequest.prototype)) {
+    XMLHttpRequest.prototype.sendAsBinary = function(string) {
+      var bytes = Array.prototype.map.call(string, function(c) {
+        return c.charCodeAt(0) & 0xff;
+      });
+      this.send(new Uint8Array(bytes).buffer);
+    };
+  }
 
   function startLoader() {
     var i = 0;
@@ -45,17 +106,21 @@ $(function() {
     startLoader();
   });
 
-  on('gif', function(dataUrl) {
+  on('gif', function(dataBase64) {
     stopLoader();
     $record.removeClass('disabled recording');
     $info.text('Record');
 
+    localStorage.dataBase64 = dataBase64;
+    var dataUrl = 'data:image/gif;base64,' + dataBase64;
     $gif.attr('src', dataUrl).show();
     $gifLink.attr('href', dataUrl);
+    $imgur.show();
   });
 
   function loading() {
     $gif.hide();
+    $imgur.hide();
     $record.addClass('disabled');
     $info.text('Wait...');
     $countdown.knob().show();
