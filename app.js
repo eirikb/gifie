@@ -46,14 +46,14 @@ $(function() {
     $group.hide();
 
     var auth;
-    if (token) authorization = 'Bearer ' + token;
-    else authorization = 'Client-ID ' + clientId;
+    if (token) auth = 'Bearer ' + token;
+    else auth = 'Client-ID ' + clientId;
 
     $.ajax({
       url: 'https://api.imgur.com/3/image',
       method: 'POST',
       headers: {
-        Authorization: authorization,
+        Authorization: auth,
         Accept: 'application/json'
       },
       data: {
