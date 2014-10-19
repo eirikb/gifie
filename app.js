@@ -51,7 +51,7 @@ $(function() {
 
     $.ajax({
       url: 'https://api.imgur.com/3/image',
-      method: 'POST',
+      type: 'POST',
       headers: {
         Authorization: auth,
         Accept: 'application/json'
