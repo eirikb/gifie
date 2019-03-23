@@ -1,4 +1,9 @@
-gifie = (function() {
+import Promise from 'bluebird';
+import getUserMedia from 'getusermedia';
+
+const promUserMedia = Promise.promisify(getUserMedia);
+
+window.gifie = (function() {
   var video = $('<video autoplay>')[0];
   var canvas = $('<canvas>')[0];
   var ctx = canvas.getContext('2d');
@@ -18,15 +23,19 @@ gifie = (function() {
   }, false);
 
   function prepare(cb) {
-    navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia ||
-      navigator.mozGetUserMedia || navigator.msGetUserMedia;
-
-    navigator.getUserMedia({
-      video: true
-    }, function(stream) {
-      video.src = window.URL.createObjectURL(stream);
+    promUserMedia({ video: true }).then(stream => {
+      if (navigator.mozGetUserMedia) {
+        video.mozSrcObject = stream;
+      } else {
+        let vu = window.URL || window.webkitURL;
+        try {
+          video.src = vu.createObjectURL(stream);
+        } catch(e) {
+          video.srcObject = stream;
+        }
+      }
       trigger('prepare');
-    }, function(err) {
+    }).catch(err => {
       trigger('prepare', err);
     });
   }

@@ -1,13 +1,10 @@
-importScripts('trix.js',
-  'gif.js/NeuQuant.js',
-  'gif.js/LZWEncoder.js',
-  'gif.js/GIFEncoder.js');
+import GIFEncoder from './gif.js/GIFEncoder.js';
 
 var encoder;
 
 var cmd = {
   init: function(data) {
-    encoder = new self.GIFEncoder(data.width, data.height);
+    encoder = new GIFEncoder(data.width, data.height);
     encoder.setQuality(data.quality || 30);
     encoder.setDelay(data.delay || 0);
     encoder.setRepeat(data.repeat || 0);

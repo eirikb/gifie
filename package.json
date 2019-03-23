@@ -1,0 +1,22 @@
+{
+  "name": "gifie",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:mrcoles/gifie.git",
+  "author": "Peter Coles <peter@mrcoles.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "parcel index.html",
+    "build": "parcel build index.html"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.4.0",
+    "@babel/preset-env": "^7.4.2",
+    "parcel-bundler": "^1.12.3"
+  },
+  "dependencies": {
+    "bluebird": "^3.5.3",
+    "getusermedia": "^2.0.1",
+    "raf-polyfill": "^1.0.0"
+  }
+}
