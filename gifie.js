@@ -23,18 +23,14 @@ gifie = (function() {
 
     navigator.getUserMedia({
       video: true
-    }, function(stream) {
-      if (navigator.mozGetUserMedia) {
-        video.mozSrcObject = stream;
-      } else {
-        try {
-          video.src = (window.URL || window.webkitURL).createObjectURL(stream);
-        } catch(e) {
-          video.srcObject = stream;
-        }
-      }
+    }, function (stream) {
+      video.srcObject = stream;
+      video.mozSrcObject = stream;
+      try {
+        video.src = (window.URL || window.webkitURL).createObjectURL(stream);
+      } catch (e) { }
       trigger('prepare');
-    }, function(err) {
+    }, function (err) {
       trigger('prepare', err);
     });
   }
